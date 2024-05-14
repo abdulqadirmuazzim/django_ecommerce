@@ -18,6 +18,7 @@ def landing(req):
             message = req.POST["message"]
 
             form = Contactform(req.POST)
+            print(form.errors)
 
             if form.is_valid():
                 # save to the database
@@ -33,7 +34,13 @@ def landing(req):
                 return render(
                     req,
                     "index.html",
-                    {"name": name, "email": email, "message": message, "phone": phone},
+                    {
+                        "name": name,
+                        "email": email,
+                        "message": message,
+                        "phone": phone,
+                        "form_err": form.errors.values(),
+                    },
                 )
         if "subscribe" in req.POST:
             sub_model = Subscription
@@ -136,7 +143,6 @@ def testimonial(req):
 def contact(req):
     if req.method == "POST":
         # our form
-        print(req.POST)
         # if its the contact form
         if "contact" in req.POST:
             form = Contactform(req.POST)
@@ -176,6 +182,9 @@ def contact(req):
                 subscribed.add_error("email", "You have already subscribed")
                 print(f"{email} is present in the database")
                 messages.error(req, "This email is already Subscribed")
+                return render(
+                    req, "contact.html", {"form_err": subscribed.errors.as_text()}
+                )
 
             print(subscribed)
             if subscribed.is_valid():
@@ -226,3 +235,11 @@ def why(req):
             return render(req, "why.html", {"err_mail": email})
 
     return render(req, "why.html")
+
+
+# Base template
+def base(req):
+    if req.method == "POST":
+        form = Subscription(req.POST)
+        print("It worked")
+    return render(req, "base.html", {})

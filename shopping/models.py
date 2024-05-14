@@ -1,11 +1,12 @@
 from django.db import models
 from django.utils import timezone
+from phonenumber_field.modelfields import PhoneNumberField as PNF
 
 
 class Comment(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
-    phone = models.CharField(max_length=15, help_text="Enter phone e.g +1 123-456-7980")
+    phone = PNF()
     message = models.CharField(max_length=500)
     date_created = models.DateTimeField(default=timezone.now)
 

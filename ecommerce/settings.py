@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "shopping.apps.ShoppingConfig",
+    "phonenumber_field",
 ]
 
 MIDDLEWARE = [
@@ -68,7 +69,7 @@ ROOT_URLCONF = "ecommerce.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -149,3 +150,4 @@ STATICFILES_DIR = (os.path.join(BASE_DIR, "static"),)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # it's called flexing as a programmer!!!
+# AUTH_USER_MODEL = "core.User"

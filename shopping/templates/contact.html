@@ -1,6 +1,10 @@
+{% extends "base.html" %}
 <!DOCTYPE html>
 {% load static %}
+
 <html>
+
+
 
 <head>
   <!-- Basic -->
@@ -30,9 +34,11 @@
   <!-- responsive style -->
   <link href="static/css/responsive.css" rel="stylesheet" />
 </head>
+{% block content %}
 
 <body>
   <div class="hero_area">
+
     <!-- header section strats -->
     <header class="header_section">
       <nav class="navbar navbar-expand-lg custom_nav-container ">
@@ -124,6 +130,7 @@
         </h2>
       </div>
     </div>
+
     <div class="container container-bg">
       <div class="row">
         <div class="col-lg-7 col-md-6 px-0">
@@ -175,7 +182,7 @@
 
   <!-- info section -->
 
-  <section class="info_section  layout_padding2-top">
+  <!-- <section class="info_section  layout_padding2-top">
     <div class="social_container">
       <div class="social_box">
         <a href="">
@@ -211,6 +218,15 @@
               </h5>
 
               <form method="post">
+                {% if form_err %}
+
+
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  {{ form_err }}
+                  <button type="button" class="btn-close" style="background: transparent; color: black;"
+                    data-bs-dismiss="alert" aria-label="Close"><strong><big>X</big></strong></button>
+                </div>
+                {% endif %}
                 {% csrf_token %}
                 <input type="email" placeholder="Enter your email" name="email" value="{{mail}}">
                 <button name="subscribe">
@@ -250,7 +266,7 @@
         </div>
       </div>
     </div>
-    <!-- footer section -->
+    <-- footer section ->
     <footer class=" footer_section">
       <div class="container">
         <p>
@@ -259,9 +275,9 @@
         </p>
       </div>
     </footer>
-    <!-- footer section -->
+    <!- footer section ->
 
-  </section>
+  </section> -->
 
   <!-- end info section -->
 
@@ -275,3 +291,4 @@
 </body>
 
 </html>
+{% endblock %}

@@ -140,6 +140,7 @@
       </div>
       {% endif %}
       {% endfor %}
+
     </header>
     <!-- end header section -->
     <!-- slider section -->
@@ -840,6 +841,12 @@
         </div>
         <div class="col-md-6 col-lg-5 px-0">
           <form method="post" id="cont_form">
+            {% for error in form_err %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ error }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
             {% csrf_token %}
             <div>
               <input type="text" placeholder="Name" name="name" value="{{ name }}" />
