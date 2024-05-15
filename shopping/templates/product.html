@@ -21,6 +21,52 @@
         </h1>
         <br><br><br><br>
     </center>
+
+    <!-- our product from search results if any -->
+    <div class="heading_container heading_center">
+        <h2>
+            Search results
+        </h2>
+    </div>
+    {% for item in items %}
+
+    <section class="shop_section layout_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="box">
+                        <a href="">
+                            <div class="img-box">
+                                <img src="{{item.image}}" alt="">
+                            </div>
+                            <div class="detail-box">
+                                <h6>
+                                    {{item.Pname}}
+                                </h6>
+                                <h6>
+                                    Price
+                                    <span>
+                                        ${{item.price}}
+                                    </span>
+                                </h6>
+                            </div>
+                            <div class="new">
+                                <span>
+                                    New
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% empty %}
+    <center>
+        <h1>No items found</h1>
+    </center>
+    {% endfor %}
+
     {% endblock %}
 </body>
 

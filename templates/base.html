@@ -162,7 +162,7 @@
 
     <!-- content block -->
     {% block content %}
-
+<!-- contact -->
     <section class="contact_section layout_padding">
         <!-- if there are no errors -->
         <div class="container px-0">
@@ -225,10 +225,6 @@
         crossorigin="anonymous"></script>
     <!-- for flash messages -->
 
-    <!-- lets customize our style for our flash messages -->
-
-
-    <!-- end contact section -->
 
     <!-- info section -->
 
@@ -339,8 +335,9 @@
     <!-- end info section -->
 
 
-    <script src="../static/js/jquery-3.4.1.min.js"></script>
-    <script src="../static/js/bootstrap.js"></script>
+    <!-- <script src="../static/js/jquery-3.4.1.min.js"></script> -->
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
     </script>
     <script src="{% static 'js/custom.js' %}"></script>

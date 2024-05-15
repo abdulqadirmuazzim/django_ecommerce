@@ -1,3 +1,4 @@
+{% extends "base.html" %}
 <!DOCTYPE html>
 {% load static %}
 <html>
@@ -32,6 +33,8 @@
 </head>
 
 <body>
+  {% block nav %}
+
   <div class="hero_area">
     <!-- header section strats -->
     <header class="header_section">
@@ -113,7 +116,11 @@
   </div>
   <!-- end hero area -->
 
+  {% endblock %}
   <!-- shop section -->
+
+  {% block content %}
+
 
   <section class="shop_section layout_padding">
     <div class="container">
@@ -331,7 +338,7 @@
       </div>
     </div>
   </section>
-
+  {% endblock %}
   <!-- end shop section -->
 
   <!-- info section -->
