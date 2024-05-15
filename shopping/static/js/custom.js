@@ -40,3 +40,24 @@ window.addEventListener('scroll', () => {
     window.scrollY = value
 
 })
+
+// search bar
+document.addEventListener("DOMContentLoaded", function () {
+    const searchBtn = document.querySelector(".nav_search-btn");
+    const searchInput = document.querySelector(".form-inline");
+    var find = document.querySelector("#search")
+    var input = document.querySelector(".search-input")
+    // When search Icon is clicked
+    searchBtn.addEventListener("click", function () {
+        // Toggle visibility of the search input when the button is clicked
+        searchInput.style.display = (searchInput.style.display === "block") ? "none" : "block";
+    });
+    // when search buttton is clicked
+    // find.addEventListener("click", function () {
+    //   const query = input.value.trim(); // Get the search query from the input field
+    //   if (query) {
+    //     window.location.href = `/search/?find=${query}`; // Redirect to the search view with the query
+    //   }
+    // });
+
+});

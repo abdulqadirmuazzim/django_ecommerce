@@ -14,3 +14,7 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ecommerce.settings")
 
 application = get_wsgi_application()
+
+
+# The variable vercel will be looking for is 'app' so:
+app = application

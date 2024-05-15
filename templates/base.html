@@ -25,12 +25,12 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 
     <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
 
     <!-- Custom styles for this template -->
-    <link href="static/css/style.css" rel="stylesheet" />
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
     <!-- responsive style -->
-    <link href="static/css/responsive.css" rel="stylesheet" />
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
 </head>
 
 <body>
@@ -41,26 +41,130 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- for flash messages -->
 
+    {% block nav %}
+    <!-- header section strats -->
+    <header class="header_section">
+        <nav class="navbar navbar-expand-lg custom_nav-container " id="topnav">
+            <a class="navbar-brand" href="{% url ' Home' %}">
+                <span>
+                    Giftos
+                </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
+                <span class=""></span>
+            </button>
 
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav  ">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{% url ' Home' %}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Shop' %}">
+                            Shop
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Why_us' %}">
+                            Why Us
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Testimonial' %}">
+                            Testimonial
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Contact' %}">Contact Us</a>
+                    </li>
+                </ul>
+                <div class="user_option">
+                    <!-- <a href="">
+              <i class="fa fa-user" aria-hidden="true"></i>
+              <span>
+                Login
+              </span>
+            </a> -->
+                    <a href="{% url 'Shop' %}">
+                        <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                    </a>
+
+                    <button class="btn nav_search-btn">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                    <form class="form-inline" method="post" action="{% url 'Product' %}">
+                        {% csrf_token %}
+                        <input type="text" class="search-input" placeholder="Search..." name="search">
+                        <button name="find" type="submit" id="search">Search</button>
+                    </form>
+
+                    <!-- style for button -->
+                    <style>
+                        .form-inline {
+                            display: none;
+                        }
+                    </style>
+                    <!-- end style -->
+
+                    <!-- the javascript -->
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    {% endblock %}
+
+    <style>
+        .form-inline {
+            display: none;
+        }
+    </style>
+    <script>
+        // search bar
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchBtn = document.querySelector(".nav_search-btn");
+            const searchInput = document.querySelector(".form-inline");
+            var find = document.querySelector("#search")
+            var input = document.querySelector(".search-input")
+            // When search Icon is clicked
+            searchBtn.addEventListener("click", function () {
+                // Toggle visibility of the search input when the button is clicked
+                searchInput.style.display = (searchInput.style.display === "block") ? "none" : "block";
+            });
+            // when search buttton is clicked
+            // find.addEventListener("click", function () {
+            //   const query = input.value.trim(); // Get the search query from the input field
+            //   if (query) {
+            //     window.location.href = `/search/?find=${query}`; // Redirect to the search view with the query
+            //   }
+            // });
+
+        });
+    </script>
+    <!-- Success/error messages -->
+
+    {% for mess in messages %}
+    {% if mess.tags == 'success' %}
+    <div class="alert alert-success" role="alert">
+        {{mess}}
+    </div>
+    {% endif %}
+    {% endfor %}
+    <!-- if there are errors -->
+    {% for error in messages %}
+    {% if error.tags == 'error' %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    <!-- content block -->
     {% block content %}
 
     <section class="contact_section layout_padding">
         <!-- if there are no errors -->
-        {% for mess in messages %}
-        {% if mess.tags == 'success' %}
-        <div class="alert alert-success" role="alert">
-            {{mess}}
-        </div>
-        {% endif %}
-        {% endfor %}
-        <!-- if there are errors -->
-        {% for error in messages %}
-        {% if error.tags == 'error' %}
-        <div class="alert alert-danger" role="alert">
-            {{ error }}
-        </div>
-        {% endif %}
-        {% endfor %}
         <div class="container px-0">
             <div class="heading_container ">
                 <h2 class="">
@@ -83,6 +187,12 @@
                 </div>
                 <div class="col-md-6 col-lg-5 px-0">
                     <form method="post">
+                        {% for error in cont_err %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ error }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
                         {% csrf_token %}
                         <div>
                             <input type="text" placeholder="Name" name="name" value="{{ name }}" />
@@ -147,7 +257,8 @@
                             ABOUT US
                         </h6>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet,
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit
+                            amet,
                             consectetur
                             adipiscing elit, sed doLorem ipsum dolor sit amet,
                         </p>
@@ -158,16 +269,18 @@
                                 Newsletter
                             </h5>
 
-                            <form method="post">
+                            <form method="post" action="">
                                 {% if form_err %}
 
+                                {% for err in form_err %}
 
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    {{ form_err }}
+                                    {{ err }}
                                     <button type="button" class="btn-close"
                                         style="background: transparent; color: black;" data-bs-dismiss="alert"
                                         aria-label="Close"><strong><big>X</big></strong></button>
                                 </div>
+                                {% endfor %}
                                 {% endif %}
                                 {% csrf_token %}
                                 <input type="email" placeholder="Enter your email" name="email" value="{{mail}}">
@@ -182,7 +295,8 @@
                             NEED HELP
                         </h6>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet,
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit
+                            amet,
                             consectetur
                             adipiscing elit, sed doLorem ipsum dolor sit amet,
                         </p>
@@ -229,7 +343,7 @@
     <script src="../static/js/bootstrap.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
     </script>
-    <script src="../static/js/custom.js"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
 
 </body>
 

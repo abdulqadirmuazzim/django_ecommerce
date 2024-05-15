@@ -856,3 +856,8 @@ a:focus {
 
 /* end footer section*/
 /*# sourceMappingURL=style.css.map */
+
+/* OUR FORM */
+.form-inline {
+  display: none;
+}

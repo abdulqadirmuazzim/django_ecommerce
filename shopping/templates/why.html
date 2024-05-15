@@ -9,10 +9,14 @@
 
 <head>
 
-  {% block content %}
 
 <body>
+
+  {% block nav %}
+
   <div class="hero_area">
+
+
     <!-- header section strats -->
     <header class="header_section">
       <nav class="navbar navbar-expand-lg custom_nav-container ">
@@ -51,45 +55,37 @@
             </li>
           </ul>
           <div class="user_option">
-            <a href="">
+            <!-- <a href="">
               <i class="fa fa-user" aria-hidden="true"></i>
               <span>
                 Login
               </span>
-            </a>
+            </a> -->
+
             <a href="">
               <i class="fa fa-shopping-bag" aria-hidden="true"></i>
             </a>
-            <form class="form-inline ">
-              <button class="btn nav_search-btn" type="submit">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </button>
+            <button class="btn nav_search-btn">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+            <form class="form-inline" method="post" action="{% url 'Product' %}">
+              {% csrf_token %}
+              <input type="text" class="search-input" placeholder="Search..." name="search">
+              <button name="find" type="submit" id="search">Search</button>
             </form>
           </div>
         </div>
       </nav>
+
       <!-- if there are no errors -->
-      {% for mess in messages %}
-      {% if mess.tags == 'success' %}
-      <div class="alert alert-success" role="alert">
-        {{mess}}
-      </div>
-      {% endif %}
-      {% endfor %}
-      <!-- if there are errors -->
-      {% for error in messages %}
-      {% if error.tags == 'error' %}
-      <div class="alert alert-danger" role="alert">
-        {{ error }}
-      </div>
-      {% endif %}
-      {% endfor %}
+
     </header>
     <!-- end header section -->
-
   </div>
+  {% endblock %}
   <!-- end hero area -->
 
+  {% block content %}
   <!-- why section -->
 
 
@@ -110,9 +106,9 @@
                 <g>
                   <g>
                     <path d="M476.158,231.363l-13.259-53.035c3.625-0.77,6.345-3.986,6.345-7.839v-8.551c0-18.566-15.105-33.67-33.67-33.67h-60.392
-                 V110.63c0-9.136-7.432-16.568-16.568-16.568H50.772c-9.136,0-16.568,7.432-16.568,16.568V256c0,4.427,3.589,8.017,8.017,8.017
-                 c4.427,0,8.017-3.589,8.017-8.017V110.63c0-0.295,0.239-0.534,0.534-0.534h307.841c0.295,0,0.534,0.239,0.534,0.534v145.372
-                 c0,4.427,3.589,8.017,8.017,8.017c4.427,0,8.017-3.589,8.017-8.017v-9.088h94.569c0.008,0,0.014,0.002,0.021,0.002
+                  V110.63c0-9.136-7.432-16.568-16.568-16.568H50.772c-9.136,0-16.568,7.432-16.568,16.568V256c0,4.427,3.589,8.017,8.017,8.017
+                  c4.427,0,8.017-3.589,8.017-8.017V110.63c0-0.295,0.239-0.534,0.534-0.534h307.841c0.295,0,0.534,0.239,0.534,0.534v145.372
+                  c0,4.427,3.589,8.017,8.017,8.017c4.427,0,8.017-3.589,8.017-8.017v-9.088h94.569c0.008,0,0.014,0.002,0.021,0.002
                  c0.008,0,0.015-0.001,0.022-0.001c11.637,0.008,21.518,7.646,24.912,18.171h-24.928c-4.427,0-8.017,3.589-8.017,8.017v17.102
                  c0,13.851,11.268,25.119,25.119,25.119h9.086v35.273h-20.962c-6.886-19.883-25.787-34.205-47.982-34.205
                  s-41.097,14.322-47.982,34.205h-3.86v-60.393c0-4.427-3.589-8.017-8.017-8.017c-4.427,0-8.017,3.589-8.017,8.017v60.391H192.817
@@ -439,7 +435,6 @@
    footer section 
 
   </section> -->
-
   {% endblock %}
   <!-- end info section -->
 

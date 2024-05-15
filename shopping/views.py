@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
-from .models import Subscription
+from .models import Subscription, product
 from .forms import Contactform, Subs
 
 # Create your views here.
@@ -30,7 +30,7 @@ def landing(req):
             else:
                 # get the value of the fields
                 # pass them in to our templates
-                messages.error(req, "There is a problem with you form")
+                messages.error(req, "There is a problem with you form scroll down")
                 return render(
                     req,
                     "index.html",
@@ -39,7 +39,7 @@ def landing(req):
                         "email": email,
                         "message": message,
                         "phone": phone,
-                        "form_err": form.errors.values(),
+                        "cont_err": form.errors.values(),
                     },
                 )
         if "subscribe" in req.POST:
@@ -72,7 +72,11 @@ def landing(req):
                 return render(req, "index.html", {"err_mail": email})
 
         if "find" in req.POST:
+            # get the prodcts
+            pd = product
             query = req.POST["search"]
+            # items = pd.objects.filter(query) if query else pd.objects.all()
+
             print(req.POST["search"])
         return render(req, "index.html", {"query": query})
 
@@ -181,9 +185,9 @@ def contact(req):
             if email in [a.email for a in objects]:
                 subscribed.add_error("email", "You have already subscribed")
                 print(f"{email} is present in the database")
-                messages.error(req, "This email is already Subscribed")
+                # messages.error(req, "This email is already Subscribed")
                 return render(
-                    req, "contact.html", {"form_err": subscribed.errors.as_text()}
+                    req, "contact.html", {"form_err": subscribed.errors.values()}
                 )
 
             print(subscribed)
@@ -214,21 +218,23 @@ def why(req):
         sub_model = Subscription
         objects = sub_model.objects.all()
 
-        if email in [a.email for a in objects]:
+        # if email in [a.email for a in objects]:
+        if email == "abdulqadimuazzim@gmail.com":
             subcrip.add_error("email", "You have already subscribed")
             print(f"{email} is present in the database")
             messages.error(req, "This email is already Subscribed")
+            return render(req, "why.html", {"form_err": subcrip.errors.values()})
 
         if subcrip.is_valid():
             subcrip.save()
             messages.success(req, "You have successfully subscribed")
-            send_mail(
-                "Thanks for Subscribing",
-                f"Dear {email} thanks for subscribing",
-                settings.EMAIL_HOST_USER,
-                [email],
-                fail_silently=False,
-            )
+            # send_mail(
+            #     "Thanks for Subscribing",
+            #     f"Dear {email} thanks for subscribing",
+            #     settings.EMAIL_HOST_USER,
+            #     [email],
+            #     fail_silently=False,
+            # )
             return render(req, "why.html")
         else:
             messages.error(req, "Could not subscribe!")
@@ -237,9 +243,29 @@ def why(req):
     return render(req, "why.html")
 
 
-# Base template
-def base(req):
+# Product template
+def prod(req):
     if req.method == "POST":
-        form = Subscription(req.POST)
-        print("It worked")
-    return render(req, "base.html", {})
+        if "find" in req.POST:
+            query = req.POST["search"]
+            return render(req, "product.html", {"query": query})
+
+        if "subscribe" in req.POST:
+            # databse
+            sub_model = Subscription
+            # form data
+            subscribed = Subs(req.POST)
+            # email data from html form
+            email = req.POST["email"]
+            # objects data from database
+            objects = sub_model.objects.all()
+
+            if email in [a.email for a in objects]:
+                subscribed.add_error("email", "You have already subscribed")
+                print(f"{email} is present in the database")
+
+                return render(
+                    req, "product.html", {"form_err": subscribed.errors.values()}
+                )
+
+    return render(req, "product.html")
