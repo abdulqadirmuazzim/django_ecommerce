@@ -6,11 +6,13 @@ import time
 web = webdriver.Edge()
 
 web.get("http://127.0.0.1:8000/")
-time.sleep(100)
+# time.sleep(60)
 
-web.find_element(By.PARTIAL_LINK_TEXT, "Ho").click()
+web.find_element(By.CLASS_NAME, 'navbar-toggler').click()
 
-time.sleep(10)
+# web.find_element(By.LINK_TEXT, "Home").click()
+
+# time.sleep(10)
 
 web.find_element(By.LINK_TEXT, "Shop").click()
 

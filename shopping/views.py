@@ -53,12 +53,13 @@ def landing(req):
             if email in [a.email for a in objects]:
                 # Add an error to the error list so it Doesn't validate
                 subcrip.add_error("email", "You have already subscribed")
+                messages.error(req, 'There is a problem with this email')
 
                 # render the template back with the error messages
                 return render(req, "index.html", {"form_err": subcrip.errors.values()})
 
-            if subcrip.is_valid():
-                # subcrip.save()
+            elif subcrip.is_valid():
+                subcrip.save()
                 messages.success(req, "You have successfully subscribed")
                 send_mail(
                     "Thanks for Subscribing",
