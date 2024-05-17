@@ -115,6 +115,24 @@
     </header>
     {% endblock %}
 
+
+    {% for mess in messages %}
+    {% if mess.tags == 'success' %}
+    <div class="alert alert-success" role="alert">
+        {{mess}}
+    </div>
+    {% endif %}
+    {% endfor %}
+    <!-- if there are errors -->
+    {% for error in messages %}
+    {% if error.tags == 'error' %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endif %}
+    {% endfor %}
+
+
     <style>
         .form-inline {
             display: none;
@@ -144,25 +162,10 @@
     </script>
     <!-- Success/error messages -->
 
-    {% for mess in messages %}
-    {% if mess.tags == 'success' %}
-    <div class="alert alert-success" role="alert">
-        {{mess}}
-    </div>
-    {% endif %}
-    {% endfor %}
-    <!-- if there are errors -->
-    {% for error in messages %}
-    {% if error.tags == 'error' %}
-    <div class="alert alert-danger" role="alert">
-        {{ error }}
-    </div>
-    {% endif %}
-    {% endfor %}
 
     <!-- content block -->
     {% block content %}
-<!-- contact -->
+    <!-- contact -->
     <section class="contact_section layout_padding">
         <!-- if there are no errors -->
         <div class="container px-0">

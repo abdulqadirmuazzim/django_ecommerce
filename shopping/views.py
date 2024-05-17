@@ -53,7 +53,7 @@ def landing(req):
             if email in [a.email for a in objects]:
                 # Add an error to the error list so it Doesn't validate
                 subcrip.add_error("email", "You have already subscribed")
-                messages.error(req, 'There is a problem with this email')
+                messages.error(req, "Error: Could not subscribe.")
 
                 # render the template back with the error messages
                 return render(req, "index.html", {"form_err": subcrip.errors.values()})
@@ -86,7 +86,7 @@ def shop(req):
 
         if email in [a.email for a in objects]:
             subcrip.add_error("email", "You have already subscribed")
-
+            messages.error(req, "Error: Could not subscribe.")
             return render(req, "shop.html", {"form_err": subcrip.errors.values()})
 
         if subcrip.is_valid():
@@ -116,6 +116,8 @@ def testimonial(req):
 
         if email in [a.email for a in objects]:
             subcrip.add_error("email", "You have already subscribed")
+            messages.error(req, "Error: Could not subscribe.")
+
             return render(
                 req, "testimonial.html", {"form_err": subcrip.errors.values()}
             )
@@ -177,7 +179,7 @@ def contact(req):
 
             if email in [a.email for a in objects]:
                 subscribed.add_error("email", "You have already subscribed")
-                # messages.error(req, "This email is already Subscribed")
+                messages.error(req, "Error: Could not subscribe.")
                 return render(
                     req, "contact.html", {"form_err": subscribed.errors.values()}
                 )
@@ -212,6 +214,7 @@ def why(req):
 
         if email in [a.email for a in objects]:
             subcrip.add_error("email", "You have already subscribed")
+            messages.error(req, "Error: Could not subscribe.")
             return render(req, "why.html", {"form_err": subcrip.errors.values()})
 
         if subcrip.is_valid():
@@ -259,6 +262,7 @@ def prod(req):
 
             if email in [a.email for a in objects]:
                 subscribed.add_error("email", "You have already subscribed")
+                messages.error(req, "Error: Could not subscribe.")
 
                 return render(
                     req, "product.html", {"form_err": subscribed.errors.values()}

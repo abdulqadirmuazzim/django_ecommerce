@@ -154,17 +154,17 @@
           <form method="post">
             {% csrf_token %}
             <div>
-              <input type="text" placeholder="Name" name="name" value="{{ name }}" />
+              <input type="text" placeholder="Name" name="name" value="{{ name }}" required />
             </div>
             <div>
-              <input type="email" placeholder="Email" name="email" value="{{ email }}" />
+              <input type="email" placeholder="Email" name="email" value="{{ email }}" required />
             </div>
             <div>
-              <input type="text" placeholder="Phone" name="phone" value="{{ phone }}" />
+              <input type="text" placeholder="Phone" name="phone" value="{{ phone }}" required />
             </div>
             <div>
-              <textarea name="message" placeholder="message" value="{{ message }}" class="message-box" cols="30"
-                rows="10" style="width: 100%;"></textarea>
+              <textarea name="message" placeholder="message" value="{{ message }}" required class="message-box"
+                cols="30" rows="10" style="width: 100%;"></textarea>
             </div>
             <div class="d-flex ">
               <button name="contact">
