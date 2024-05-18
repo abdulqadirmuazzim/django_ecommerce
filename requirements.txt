@@ -26,12 +26,6 @@ h11==0.14.0
 idna==3.3
 importlib-metadata==4.10.0
 keyring==23.5.0
-Kivy==2.1.0
-kivy-deps.angle==0.3.3
-kivy-deps.glew==0.3.1
-kivy-deps.gstreamer==0.3.3
-kivy-deps.sdl2==0.4.5
-Kivy-Garden==0.1.5
 kiwisolver==1.4.5
 matplotlib==3.7.2
 MouseInfo==0.1.3
