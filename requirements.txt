@@ -1,7 +1,7 @@
 Django==5.0.4
 django-html==0.1.0
 django-phonenumber-field==7.3.0
-psycopg2==2.9.9
+psycopg2==2.9.1
 phonenumbers==8.12.53
 requests==2.27.1
 requests-toolbelt==0.9.1
