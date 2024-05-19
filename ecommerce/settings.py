@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
-from . import keys
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -26,14 +25,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('security_key')
+SECRET_KEY = os.environ.get("security_key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 # email details
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = "abdulqadimuazzim@gmail.com"
-EMAIL_HOST_PASSWORD = os.environ.get('app_password')
+EMAIL_HOST_PASSWORD = os.environ.get("app_password")
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -97,7 +96,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": "postgres",
         "USER": "postgres.uumsixdvziqvojfpbqvk",
-        "PASSWORD": os.environ.get('database_password'),
+        "PASSWORD": os.environ.get("database_password"),
         "HOST": "aws-0-eu-west-2.pooler.supabase.com",
         "PORT": "5432",
     }
